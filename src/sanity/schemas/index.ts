@@ -12,6 +12,9 @@ import { servicesSectionBlock } from './objects/servicesSectionBlock'
 import { projectsSectionBlock } from './objects/projectsSectionBlock'
 import { whyUsSectionBlock } from './objects/whyUsSectionBlock'
 import { dividerBlock } from './objects/dividerBlock'
+import { contactSectionBlock } from './objects/contactSectionBlock'
+import { downloadSectionBlock } from './objects/downloadSectionBlock'
+import { allServicesGridBlock } from './objects/allServicesGridBlock'
 import { socialLink } from './objects/socialLink'
 import { contactInfo } from './objects/contactInfo'
 import { blockContent } from './objects/blockContent'
@@ -22,11 +25,10 @@ import { navigation } from './documents/navigation'
 import { footerSettings } from './documents/footerSettings'
 import { homePage } from './documents/homePage'
 import { servicesPage } from './documents/servicesPage'
-import { companyPage } from './documents/companyPage'
 import { contactsPage } from './documents/contactsPage'
 import { ctaPage } from './documents/ctaPage'
+import { careersPage } from './documents/careersPage'
 import { service } from './documents/service'
-import { teamMember } from './documents/teamMember'
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   // Objects
@@ -41,6 +43,9 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   projectsSectionBlock,
   whyUsSectionBlock,
   dividerBlock,
+  contactSectionBlock,
+  downloadSectionBlock,
+  allServicesGridBlock,
   socialLink,
   contactInfo,
   blockContent,
@@ -51,13 +56,12 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   footerSettings,
   homePage,
   servicesPage,
-  companyPage,
   contactsPage,
   ctaPage,
+  careersPage,
 
   // Collection Documents
   service,
-  teamMember,
 ]
 
 // Singleton types that should not be creatable/deletable
@@ -67,7 +71,7 @@ export const singletonTypes = new Set([
   'footerSettings',
   'homePage',
   'servicesPage',
-  'companyPage',
   'contactsPage',
   'ctaPage',
+  'careersPage',
 ])

@@ -44,9 +44,9 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
 
   const getStep = useCallback(() => {
     if (!trackRef.current) return 170
-    const firstCard = trackRef.current.children[0] as HTMLElement
+    const firstCard = trackRef.current.querySelector('a') as HTMLElement
     if (!firstCard) return 170
-    return Math.round((firstCard.offsetWidth + 20) / 2)
+    return firstCard.offsetWidth + 20
   }, [])
 
   if (!heading && !hasServices) return null
@@ -62,20 +62,20 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
             </h2>
           )}
           {subheading && (
-            <p className="text-gray-500 leading-relaxed text-[15px]">
+            <p className="text-gray-500 leading-relaxed text-base">
               {subheading}
             </p>
           )}
         </div>
 
         {/* Right: Cards - extend to right edge of screen */}
-        <div className="flex-1 min-w-0 px-6 lg:pl-24 lg:pr-0 relative">
+        <div className="flex-1 min-w-0 lg:pl-24 pr-0 relative">
           {/* Vertical divider - clipped by section overflow-clip */}
-          <div className="hidden lg:block absolute left-0 w-px bg-[#DBDBDB] -top-16 md:-top-24 -bottom-24 md:-bottom-32" />
+          <div className="hidden lg:block absolute left-0 w-px bg-[#DBDBDB] -top-16 md:-top-24 -bottom-16 md:-bottom-24" />
           {hasServices && (
             <>
-              {/* Navigation arrows (mobile only) */}
-              <div className="flex justify-end gap-2 mb-5 pr-6 lg:pr-8">
+              {/* Navigation arrows (desktop: above cards) */}
+              <div className="hidden lg:flex justify-end gap-2 mb-4 pr-8">
                 <button
                   onClick={() => setScrollPos((prev) => Math.max(0, prev - getStep()))}
                   disabled={scrollPos <= 0}
@@ -97,18 +97,19 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
               {/* Cards */}
               <div className="overflow-hidden relative">
                 {scrollPos > 0 && (
-                  <div className="absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
+                  <div className="hidden lg:block absolute left-0 top-0 bottom-0 w-24 bg-linear-to-r from-white to-transparent z-10 pointer-events-none" />
                 )}
               <div
                 ref={trackRef}
                 className="flex gap-5 transition-transform duration-500 ease-out"
                 style={{ transform: `translateX(-${scrollPos}px)` }}
               >
+                <div className="shrink-0 w-6 lg:hidden" aria-hidden="true" />
                 {services.map((service) => (
                   <Link
                     key={service._id}
                     href={`/servizi/${service.slug}`}
-                    className="group relative shrink-0 w-72 md:w-80"
+                    className="group relative shrink-0 w-[calc(100vw-4rem)] md:w-80"
                   >
                     <div className="relative h-112 overflow-hidden rounded-lg rounded-tr-none bg-gray-200">
                       {service.featuredImage ? (
@@ -121,7 +122,7 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
                       ) : (
                         <div className="absolute inset-0 bg-gray-300" />
                       )}
-                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
 
                       {/* Title */}
                       <span className="absolute top-4 left-4 bg-white text-[#676767] text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
@@ -145,6 +146,26 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
                 ))}
                 <div className="shrink-0 w-6 lg:w-8" aria-hidden="true" />
               </div>
+              </div>
+
+              {/* Navigation arrows (mobile: below cards) */}
+              <div className="flex lg:hidden justify-center gap-2 mt-10">
+                <button
+                  onClick={() => setScrollPos((prev) => Math.max(0, prev - getStep()))}
+                  disabled={scrollPos <= 0}
+                  className="w-11 h-11 rounded-lg border-2 border-gray-300 flex items-center justify-center text-gray-800 hover:border-gray-900 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Precedente"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button
+                  onClick={() => setScrollPos((prev) => Math.min(scrollLimit, prev + getStep()))}
+                  disabled={scrollPos >= scrollLimit}
+                  className="w-11 h-11 rounded-lg border-2 border-gray-300 flex items-center justify-center text-gray-800 hover:border-gray-900 disabled:opacity-25 disabled:cursor-not-allowed transition-colors"
+                  aria-label="Successivo"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
               </div>
             </>
           )}

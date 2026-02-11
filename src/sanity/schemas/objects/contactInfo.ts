@@ -23,7 +23,23 @@ export const contactInfo = defineType({
     }),
     defineField({
       name: 'piva',
-      title: 'Partita IVA',
+      title: 'Partita IVA / Codice Fiscale',
+      type: 'string',
+    }),
+    defineField({
+      name: 'hours',
+      title: 'Orari',
+      type: 'string',
+      description: 'Es: Lun - Sab: 7.00 - 18:00',
+    }),
+    defineField({
+      name: 'pec',
+      title: 'PEC',
+      type: 'string',
+    }),
+    defineField({
+      name: 'sdi',
+      title: 'Codice SDI',
       type: 'string',
     }),
     defineField({

@@ -56,25 +56,27 @@ export function ServicesDropdown({ label, href, services, scrolled }: ServicesDr
       </Link>
 
       {isOpen && (
-        <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 bg-white/95 backdrop-blur-md rounded-2xl shadow-xl border border-white/20 py-3 z-50">
-          {services.map((service) => (
-            <Link
-              key={service._id}
-              href={`/servizi/${service.slug}`}
-              className="block px-5 py-2.5 hover:bg-gray-100/60 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              <span className="block text-sm font-semibold text-gray-900">
-                {service.title}
-              </span>
-              {service.shortDescription && (
-                <span className="block text-xs text-gray-500 mt-0.5">
-                  {service.shortDescription}
+        <div className="absolute top-full left-0 mt-3 w-lg bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20 py-4 z-50">
+          <div className="grid grid-cols-2 gap-x-2">
+            {services.map((service) => (
+              <Link
+                key={service._id}
+                href={`/servizi/${service.slug}`}
+                className="block px-5 py-2.5 hover:bg-gray-100/60 transition-colors rounded-lg"
+                onClick={() => setIsOpen(false)}
+              >
+                <span className="block text-sm font-semibold text-gray-900">
+                  {service.title}
                 </span>
-              )}
-            </Link>
-          ))}
-          <div className="border-t border-gray-100 mt-2 pt-2 px-5">
+                {service.shortDescription && (
+                  <span className="block text-xs text-gray-500 mt-0.5">
+                    {service.shortDescription}
+                  </span>
+                )}
+              </Link>
+            ))}
+          </div>
+          <div className="border-t border-gray-100 mt-3 pt-3 px-5">
             <Link
               href={href}
               className="text-sm text-gray-900 font-medium hover:text-gray-600"

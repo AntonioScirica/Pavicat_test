@@ -5,15 +5,6 @@ export const siteSettingsQuery = defineQuery(`
     logo,
     logoWhite,
     siteName,
-    siteTagline,
-    contactInfo,
-    socialLinks,
-    footerText,
-    footerColumns[] {
-      title,
-      links[] { label, href }
-    },
-    copyrightText,
     defaultSeo
   }
 `)
@@ -23,7 +14,13 @@ export const navigationQuery = defineQuery(`
     mainNav[] {
       label,
       href,
-      hasDropdown
+      hasDropdown,
+      dropdownType,
+      subItems[] {
+        label,
+        href,
+        description
+      }
     },
     ctaButton
   }
@@ -32,13 +29,17 @@ export const navigationQuery = defineQuery(`
 export const footerQuery = defineQuery(`
   *[_type == "footerSettings"][0] {
     logo,
-    description,
     columns[] {
       title,
-      links[] { label, href }
+      columnType,
+      links[] { label, href, "fileUrl": file.asset->url },
+      contactItems[] { itemType, label, value }
     },
-    contactInfo,
-    socialLinks,
+    socialLinks[] {
+      platform,
+      label,
+      url
+    },
     copyrightText
   }
 `)

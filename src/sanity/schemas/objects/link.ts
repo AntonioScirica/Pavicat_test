@@ -25,9 +25,9 @@ export const link = defineType({
       to: [
         { type: 'homePage' },
         { type: 'servicesPage' },
-        { type: 'companyPage' },
         { type: 'contactsPage' },
         { type: 'ctaPage' },
+        { type: 'careersPage' },
         { type: 'service' },
       ],
       hidden: ({ parent }) => parent?.linkType !== 'internal',

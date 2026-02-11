@@ -8,8 +8,7 @@ export const footerSettings = defineType({
   icon: BlockElementIcon,
   groups: [
     { name: 'content', title: 'Contenuti', default: true },
-    { name: 'columns', title: 'Colonne link' },
-    { name: 'contact', title: 'Contatti' },
+    { name: 'columns', title: 'Colonne' },
     { name: 'social', title: 'Social' },
   ],
   fields: [
@@ -21,16 +20,9 @@ export const footerSettings = defineType({
       group: 'content',
     }),
     defineField({
-      name: 'description',
-      title: 'Descrizione',
-      type: 'text',
-      rows: 4,
-      description: 'Breve testo sotto il logo',
-      group: 'content',
-    }),
-    defineField({
       name: 'columns',
-      title: 'Colonne link',
+      title: 'Colonne',
+      description: 'Trascina per riordinare. La colonna Contatti può essere posizionata dove vuoi.',
       type: 'array',
       group: 'columns',
       of: [
@@ -44,15 +36,31 @@ export const footerSettings = defineType({
               validation: (rule) => rule.required(),
             }),
             defineField({
+              name: 'columnType',
+              title: 'Tipo colonna',
+              type: 'string',
+              options: {
+                list: [
+                  { title: 'Link manuali', value: 'links' },
+                  { title: 'Servizi (automatico)', value: 'services' },
+                  { title: 'Contatti (info azienda)', value: 'contacts' },
+                ],
+              },
+              initialValue: 'links',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
               name: 'links',
               title: 'Link',
               type: 'array',
+              hidden: ({ parent }) => parent?.columnType !== 'links',
               of: [
                 {
                   type: 'object',
                   fields: [
                     defineField({ name: 'label', title: 'Etichetta', type: 'string', validation: (rule) => rule.required() }),
-                    defineField({ name: 'href', title: 'URL', type: 'string', validation: (rule) => rule.required() }),
+                    defineField({ name: 'href', title: 'URL', type: 'string', description: 'Non necessario se è un file da scaricare', hidden: ({ parent }) => !!parent?.file }),
+                    defineField({ name: 'file', title: 'File da scaricare', type: 'file', description: 'Se presente, il link scarica questo file' }),
                   ],
                   preview: {
                     select: { title: 'label', subtitle: 'href' },
@@ -60,18 +68,77 @@ export const footerSettings = defineType({
                 },
               ],
             }),
+            defineField({
+              name: 'contactItems',
+              title: 'Voci contatto',
+              description: 'Trascina per riordinare le voci',
+              type: 'array',
+              hidden: ({ parent }) => parent?.columnType !== 'contacts',
+              of: [
+                {
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'itemType',
+                      title: 'Tipo',
+                      type: 'string',
+                      options: {
+                        list: [
+                          { title: 'Azienda', value: 'company' },
+                          { title: 'Indirizzo', value: 'address' },
+                          { title: 'P.Iva / CF', value: 'piva' },
+                          { title: 'PEC', value: 'pec' },
+                          { title: 'Codice SDI', value: 'sdi' },
+                          { title: 'Telefono', value: 'phone' },
+                          { title: 'Email', value: 'email' },
+                          { title: 'Etichetta custom', value: 'custom' },
+                        ],
+                      },
+                      validation: (rule) => rule.required(),
+                    }),
+                    defineField({
+                      name: 'label',
+                      title: 'Etichetta',
+                      type: 'string',
+                      description: 'Prefisso mostrato prima del valore (es: "Rea:")',
+                      hidden: ({ parent }) => parent?.itemType !== 'custom',
+                    }),
+                    defineField({
+                      name: 'value',
+                      title: 'Valore',
+                      type: 'string',
+                      validation: (rule) => rule.required(),
+                    }),
+                  ],
+                  preview: {
+                    select: { itemType: 'itemType', value: 'value', label: 'label' },
+                    prepare({ itemType, value, label }) {
+                      const labels: Record<string, string> = {
+                        company: 'Azienda',
+                        address: 'Indirizzo',
+                        piva: 'P.Iva/CF',
+                        pec: 'PEC',
+                        sdi: 'SDI',
+                        phone: 'Telefono',
+                        email: 'Email',
+                        custom: label || 'Custom',
+                      }
+                      return { title: labels[itemType] || itemType, subtitle: value }
+                    },
+                  },
+                },
+              ],
+            }),
           ],
           preview: {
-            select: { title: 'title' },
+            select: { title: 'title', columnType: 'columnType' },
+            prepare({ title, columnType }) {
+              const types: Record<string, string> = { links: 'Link manuali', services: 'Servizi (auto)', contacts: 'Contatti' }
+              return { title: title || 'Colonna', subtitle: types[columnType] || columnType }
+            },
           },
         },
       ],
-    }),
-    defineField({
-      name: 'contactInfo',
-      title: 'Informazioni di contatto',
-      type: 'contactInfo',
-      group: 'contact',
     }),
     defineField({
       name: 'socialLinks',

@@ -21,6 +21,12 @@ export const service = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'category',
+      title: 'Categoria',
+      type: 'string',
+      description: 'Es: Cemento elicotterato, Resina, Cemento stampato',
+    }),
+    defineField({
       name: 'shortDescription',
       title: 'Descrizione breve',
       type: 'text',
@@ -82,7 +88,7 @@ export const service = defineType({
   preview: {
     select: {
       title: 'title',
-      subtitle: 'shortDescription',
+      subtitle: 'category',
       media: 'featuredImage.image',
     },
   },

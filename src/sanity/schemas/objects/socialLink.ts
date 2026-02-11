@@ -16,16 +16,36 @@ export const socialLink = defineType({
           { title: 'LinkedIn', value: 'linkedin' },
           { title: 'YouTube', value: 'youtube' },
           { title: 'WhatsApp', value: 'whatsapp' },
+          { title: 'Custom', value: 'custom' },
         ],
       },
     }),
     defineField({
+      name: 'label',
+      title: 'Etichetta',
+      type: 'string',
+      description: 'Nome mostrato nel footer',
+      hidden: ({ parent }) => parent?.platform !== 'custom',
+    }),
+    defineField({
       name: 'url',
       title: 'URL',
-      type: 'url',
+      type: 'string',
+      description: 'URL completo (https://...) o percorso relativo (/contattaci)',
     }),
   ],
   preview: {
-    select: { title: 'platform', subtitle: 'url' },
+    select: { platform: 'platform', label: 'label', url: 'url' },
+    prepare({ platform, label, url }) {
+      const names: Record<string, string> = {
+        facebook: 'Facebook',
+        instagram: 'Instagram',
+        linkedin: 'LinkedIn',
+        youtube: 'YouTube',
+        whatsapp: 'WhatsApp',
+        custom: label || 'Custom',
+      }
+      return { title: names[platform] || platform, subtitle: url }
+    },
   },
 })

@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       )
     }
 
-    const { name, email, phone, message } = result.data
+    const { name, email, message } = result.data
 
     const { error } = await getResend().emails.send({
       from: 'Pavicat <noreply@pavicat.it>',
@@ -37,15 +37,8 @@ export async function POST(request: Request) {
                 <a href="mailto:${email}" style="color: #1d4ed8;">${email}</a>
               </td>
             </tr>
-            ${phone ? `
             <tr>
-              <td style="padding: 10px; font-weight: bold; color: #374151; vertical-align: top;">Telefono:</td>
-              <td style="padding: 10px; color: #4b5563;">
-                <a href="tel:${phone}" style="color: #1d4ed8;">${phone}</a>
-              </td>
-            </tr>` : ''}
-            <tr style="background-color: #f9fafb;">
-              <td style="padding: 10px; font-weight: bold; color: #374151; vertical-align: top;">Messaggio:</td>
+              <td style="padding: 10px; font-weight: bold; color: #374151; vertical-align: top;">Descrizione:</td>
               <td style="padding: 10px; color: #4b5563; white-space: pre-wrap;">${message}</td>
             </tr>
           </table>

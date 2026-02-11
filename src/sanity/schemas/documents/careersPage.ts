@@ -1,12 +1,23 @@
 import { defineField, defineType } from 'sanity'
-import { HomeIcon } from '@sanity/icons'
+import { UsersIcon } from '@sanity/icons'
 
-export const homePage = defineType({
-  name: 'homePage',
-  title: 'Pagina Home',
+export const careersPage = defineType({
+  name: 'careersPage',
+  title: 'Lavora con Noi',
   type: 'document',
-  icon: HomeIcon,
+  icon: UsersIcon,
   fields: [
+    defineField({
+      name: 'hero',
+      title: 'Header pagina',
+      type: 'object',
+      fields: [
+        defineField({ name: 'title', title: 'Titolo', type: 'string' }),
+        defineField({ name: 'subtitle', title: 'Sottotitolo', type: 'text', rows: 2 }),
+        defineField({ name: 'image', title: 'Immagine', type: 'imageWithAlt' }),
+        defineField({ name: 'grayscale', title: 'Bianco e nero', type: 'boolean', initialValue: true }),
+      ],
+    }),
     defineField({
       name: 'sections',
       title: 'Sezioni',
@@ -25,8 +36,6 @@ export const homePage = defineType({
         { type: 'allServicesGridBlock' },
       ],
     }),
-
-    // SEO
     defineField({
       name: 'seo',
       title: 'SEO',
@@ -35,7 +44,7 @@ export const homePage = defineType({
   ],
   preview: {
     prepare() {
-      return { title: 'Pagina Home' }
+      return { title: 'Lavora con Noi' }
     },
   },
 })

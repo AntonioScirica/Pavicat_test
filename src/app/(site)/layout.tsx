@@ -39,9 +39,8 @@ export default async function SiteLayout({
       <Footer
         logo={footer?.logo || settings?.logoWhite || settings?.logo}
         siteName={settings?.siteName}
-        footerText={footer?.description}
         footerColumns={footer?.columns}
-        contactInfo={footer?.contactInfo}
+        services={services}
         socialLinks={footer?.socialLinks}
         copyrightText={footer?.copyrightText}
       />

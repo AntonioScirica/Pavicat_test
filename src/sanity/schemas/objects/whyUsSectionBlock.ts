@@ -29,11 +29,9 @@ export const whyUsSectionBlock = defineType({
               options: {
                 list: [
                   { title: 'Orologio (Esperienza)', value: 'clock' },
-                  { title: 'Tempio (Onestà)', value: 'temple' },
-                  { title: 'Mirino (Affidabilità)', value: 'target' },
-                  { title: 'Scudo (Garanzia)', value: 'shield' },
-                  { title: 'Stella', value: 'star' },
-                  { title: 'Cuore', value: 'heart' },
+                  { title: 'Scudo (Affidabilità)', value: 'shield' },
+                  { title: 'Award (Garanzia)', value: 'award' },
+                  { title: 'Users (Onestà)', value: 'users' },
                 ],
               },
             }),

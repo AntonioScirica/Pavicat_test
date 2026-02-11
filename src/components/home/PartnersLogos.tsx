@@ -16,7 +16,7 @@ export function PartnersLogos({ logos, backgroundColor }: PartnersLogosProps) {
   return (
     <section className={`border-t border-gray-100 ${backgroundColor === 'gray' ? 'bg-[#FAFAFA]' : 'bg-white'}`}>
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-10">
-        <div className="flex items-center gap-12 overflow-x-auto">
+        <div className="flex items-center gap-8 md:gap-12 overflow-x-auto scrollbar-hide">
           {logos.map((logo, index) => (
             <div
               key={index}

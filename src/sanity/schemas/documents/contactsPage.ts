@@ -1,11 +1,11 @@
 import { defineField, defineType } from 'sanity'
-import { EnvelopeIcon } from '@sanity/icons'
+import { UsersIcon } from '@sanity/icons'
 
 export const contactsPage = defineType({
   name: 'contactsPage',
-  title: 'Pagina Contatti',
+  title: 'Chi Siamo',
   type: 'document',
-  icon: EnvelopeIcon,
+  icon: UsersIcon,
   fields: [
     defineField({
       name: 'hero',
@@ -14,31 +14,27 @@ export const contactsPage = defineType({
       fields: [
         defineField({ name: 'title', title: 'Titolo', type: 'string' }),
         defineField({ name: 'subtitle', title: 'Sottotitolo', type: 'text', rows: 2 }),
+        defineField({ name: 'image', title: 'Immagine di sfondo', type: 'imageWithAlt' }),
+        defineField({ name: 'grayscale', title: 'Bianco e nero', type: 'boolean', initialValue: true }),
       ],
     }),
     defineField({
-      name: 'formHeading',
-      title: 'Titolo form',
-      type: 'string',
-    }),
-    defineField({
-      name: 'formDescription',
-      title: 'Descrizione form',
-      type: 'text',
-      rows: 3,
-    }),
-    defineField({
-      name: 'successMessage',
-      title: 'Messaggio dopo invio',
-      type: 'text',
-      rows: 2,
-      description: 'Messaggio mostrato dopo l\'invio del form',
-    }),
-    defineField({
-      name: 'showMap',
-      title: 'Mostra mappa',
-      type: 'boolean',
-      initialValue: true,
+      name: 'sections',
+      title: 'Sezioni',
+      type: 'array',
+      of: [
+        { type: 'contactSectionBlock' },
+        { type: 'downloadSectionBlock' },
+        { type: 'allServicesGridBlock' },
+        { type: 'heroSection' },
+        { type: 'storySectionBlock' },
+        { type: 'partnersSectionBlock' },
+        { type: 'servicesSectionBlock' },
+        { type: 'projectsSectionBlock' },
+        { type: 'whyUsSectionBlock' },
+        { type: 'ctaBlock' },
+        { type: 'dividerBlock' },
+      ],
     }),
     defineField({
       name: 'seo',
@@ -48,7 +44,7 @@ export const contactsPage = defineType({
   ],
   preview: {
     prepare() {
-      return { title: 'Pagina Contatti' }
+      return { title: 'Chi Siamo' }
     },
   },
 })

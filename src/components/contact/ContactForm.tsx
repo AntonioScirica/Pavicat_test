@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { contactFormSchema, type ContactFormData } from '@/lib/validation'
+import { contactFormSchema } from '@/lib/validation'
 
 interface ContactFormProps {
   successMessage?: string
@@ -22,9 +22,7 @@ export function ContactForm({ successMessage }: ContactFormProps) {
     const data = {
       name: formData.get('name') as string,
       email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
       message: formData.get('message') as string,
-      privacy: formData.get('privacy') === 'on' ? true as const : undefined,
     }
 
     const result = contactFormSchema.safeParse(data)
@@ -77,15 +75,14 @@ export function ContactForm({ successMessage }: ContactFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-          Nome e cognome *
+          Nome
         </label>
         <input
           id="name"
           name="name"
           type="text"
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-          placeholder="Mario Rossi"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition"
         />
         {fieldErrors.name && (
           <p className="text-red-600 text-sm mt-1">{fieldErrors.name}</p>
@@ -94,15 +91,14 @@ export function ContactForm({ successMessage }: ContactFormProps) {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-          Email *
+          Email
         </label>
         <input
           id="email"
           name="email"
           type="email"
           required
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-          placeholder="mario@esempio.it"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition"
         />
         {fieldErrors.email && (
           <p className="text-red-600 text-sm mt-1">{fieldErrors.email}</p>
@@ -110,50 +106,20 @@ export function ContactForm({ successMessage }: ContactFormProps) {
       </div>
 
       <div>
-        <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-          Telefono
-        </label>
-        <input
-          id="phone"
-          name="phone"
-          type="tel"
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
-          placeholder="+39 123 456 7890"
-        />
-      </div>
-
-      <div>
         <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          Messaggio *
+          Descrizione
         </label>
         <textarea
           id="message"
           name="message"
           required
-          rows={5}
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-y"
-          placeholder="Descrivi la tua richiesta..."
+          rows={6}
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition resize-y"
         />
         {fieldErrors.message && (
           <p className="text-red-600 text-sm mt-1">{fieldErrors.message}</p>
         )}
       </div>
-
-      <div className="flex items-start gap-2">
-        <input
-          id="privacy"
-          name="privacy"
-          type="checkbox"
-          required
-          className="mt-1 h-4 w-4 text-blue-700 border-gray-300 rounded focus:ring-blue-500"
-        />
-        <label htmlFor="privacy" className="text-sm text-gray-600">
-          Acconsento al trattamento dei dati personali ai sensi del GDPR *
-        </label>
-      </div>
-      {fieldErrors.privacy && (
-        <p className="text-red-600 text-sm">{fieldErrors.privacy}</p>
-      )}
 
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-3">
@@ -161,13 +127,15 @@ export function ContactForm({ successMessage }: ContactFormProps) {
         </div>
       )}
 
-      <button
-        type="submit"
-        disabled={isSubmitting}
-        className="w-full bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isSubmitting ? 'Invio in corso...' : 'Invia messaggio'}
-      </button>
+      <div className="flex justify-center lg:justify-end">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? 'INVIO...' : 'INVIA'}
+        </button>
+      </div>
     </form>
   )
 }

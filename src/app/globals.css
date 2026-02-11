@@ -9,3 +9,11 @@ body {
   color: #171717;
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

@@ -1,5 +1,5 @@
 import type { StructureResolver } from 'sanity/structure'
-import { CogIcon, MenuIcon, HomeIcon, ComponentIcon, CaseIcon, EnvelopeIcon, RocketIcon, BlockElementIcon } from '@sanity/icons'
+import { CogIcon, MenuIcon, HomeIcon, ComponentIcon, UsersIcon, RocketIcon, BlockElementIcon, UserIcon } from '@sanity/icons'
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -37,13 +37,8 @@ export const structure: StructureResolver = (S) =>
         .child(S.document().schemaType('servicesPage').documentId('servicesPage')),
 
       S.listItem()
-        .title('Pagina Azienda')
-        .icon(CaseIcon)
-        .child(S.document().schemaType('companyPage').documentId('companyPage')),
-
-      S.listItem()
-        .title('Pagina Contatti')
-        .icon(EnvelopeIcon)
+        .title('Chi Siamo')
+        .icon(UsersIcon)
         .child(S.document().schemaType('contactsPage').documentId('contactsPage')),
 
       S.listItem()
@@ -51,9 +46,13 @@ export const structure: StructureResolver = (S) =>
         .icon(RocketIcon)
         .child(S.document().schemaType('ctaPage').documentId('ctaPage')),
 
+      S.listItem()
+        .title('Lavora con Noi')
+        .icon(UserIcon)
+        .child(S.document().schemaType('careersPage').documentId('careersPage')),
+
       S.divider(),
 
       // Collections
       S.documentTypeListItem('service').title('Servizi'),
-      S.documentTypeListItem('teamMember').title('Team'),
     ])

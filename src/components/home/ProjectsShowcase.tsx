@@ -33,23 +33,23 @@ export function ProjectsShowcase({ heading, subheading, stats, categories, ctaTe
       <section className={backgroundColor === 'white' ? 'bg-white' : 'bg-[#FAFAFA]'}>
         {/* Top: Title + Stats */}
         <div className="grid grid-cols-1 lg:grid-cols-2">
-          <div className="pt-10 md:pt-14 pb-14 md:pb-18 px-6 lg:px-8 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] flex items-center">
+          <div className="pt-16 md:pt-14 pb-14 md:pb-18 px-6 lg:px-8 lg:pl-[max(2rem,calc((100vw-80rem)/2+2rem))] flex items-center">
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-tight leading-tight mb-2">
                 {heading}
               </h2>
               {subheading && (
-                <p className="text-gray-500 leading-relaxed text-[15px] max-w-md">
+                <p className="text-gray-500 leading-relaxed text-base max-w-md">
                   {subheading}
                 </p>
               )}
             </div>
           </div>
           {stats && stats.length > 0 && (
-            <div className="bg-white flex flex-col items-center justify-center gap-16 py-14 md:py-18 px-6">
+            <div className="bg-white flex flex-col items-center justify-center gap-14 md:gap-16 py-10 md:py-18 px-6">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
-                  <div className="text-5xl md:text-6xl font-bold text-gray-900 leading-none">{stat.value}</div>
+                  <div className="text-6xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-none">{stat.value}</div>
                   <p className="text-xs text-gray-400 uppercase tracking-[0.2em] mt-1">{stat.label}</p>
                 </div>
               ))}
@@ -59,16 +59,16 @@ export function ProjectsShowcase({ heading, subheading, stats, categories, ctaTe
 
         <hr className="border-0 h-px bg-[#EBEBEB]" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-14 md:pt-20">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-14 md:pt-20 pb-14 md:pb-20">
 
           {/* Category cards */}
           {categories && categories.length > 0 && (
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-3 md:gap-4">
               {categories.map((category, index) => (
                 <Link
                   key={index}
                   href={category.href || '#'}
-                  className="group relative rounded-xl overflow-hidden aspect-3/4 bg-gray-200"
+                  className="group relative rounded-xl overflow-hidden aspect-4/3 sm:aspect-3/4 bg-gray-200"
                 >
                   {category.image?.image?.asset?._ref ? (
                     <>
@@ -94,20 +94,20 @@ export function ProjectsShowcase({ heading, subheading, stats, categories, ctaTe
               ))}
             </div>
           )}
+
+          {/* CTA */}
+          {ctaText && ctaHref && (
+            <div className="text-center pt-14 md:pt-20">
+              <Link
+                href={ctaHref}
+                className="inline-block bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gray-800 transition-colors"
+              >
+                {ctaText}
+              </Link>
+            </div>
+          )}
         </div>
       </section>
-
-      {/* CTA - outside FAFAFA background */}
-      {ctaText && ctaHref && (
-        <div className="text-center py-14 md:py-20">
-          <Link
-            href={ctaHref}
-            className="inline-block bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gray-800 transition-colors"
-          >
-            {ctaText}
-          </Link>
-        </div>
-      )}
     </>
   )
 }

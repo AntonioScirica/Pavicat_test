@@ -3,6 +3,7 @@ import { SanityImage } from '@/components/shared/SanityImage'
 
 interface ServiceCardProps {
   title: string
+  category?: string
   slug: string
   shortDescription?: string
   featuredImage?: {
@@ -11,32 +12,37 @@ interface ServiceCardProps {
   }
 }
 
-export function ServiceCard({ title, slug, shortDescription, featuredImage }: ServiceCardProps) {
+export function ServiceCard({ title, category, slug, shortDescription, featuredImage }: ServiceCardProps) {
   return (
     <Link
       href={`/servizi/${slug}`}
-      className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow border border-gray-100"
+      className="group relative block h-96 rounded-lg overflow-hidden bg-gray-200"
     >
-      {featuredImage && (
-        <div className="relative h-52 overflow-hidden">
-          <SanityImage
-            image={featuredImage}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-300"
-            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          />
-        </div>
+      {featuredImage ? (
+        <SanityImage
+          image={featuredImage}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
+      ) : (
+        <div className="absolute inset-0 bg-gray-300" />
       )}
-      <div className="p-6">
-        <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-blue-700 transition-colors">
-          {title}
-        </h3>
-        {shortDescription && (
-          <p className="text-gray-600 text-sm leading-relaxed">{shortDescription}</p>
-        )}
-        <span className="inline-block mt-4 text-blue-700 font-medium text-sm group-hover:underline">
-          Scopri di più &rarr;
+      <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+
+      {category && (
+        <span className="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
+          {category}
         </span>
+      )}
+
+      <div className="absolute bottom-5 left-5 right-5">
+        <h3 className="text-white text-lg font-bold mb-1">{title}</h3>
+        {shortDescription && (
+          <p className="text-white/85 text-sm leading-relaxed line-clamp-4">
+            {shortDescription}
+          </p>
+        )}
       </div>
     </Link>
   )

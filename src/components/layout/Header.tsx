@@ -5,12 +5,15 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { SanityImage } from '@/components/shared/SanityImage'
 import { ServicesDropdown } from './ServicesDropdown'
+import { NavDropdown } from './NavDropdown'
 import { MobileMenu } from './MobileMenu'
 
 interface NavItem {
   label: string
-  href: string
+  href?: string
   hasDropdown?: boolean
+  dropdownType?: string
+  subItems?: { label: string; href: string; description?: string }[]
 }
 
 interface Service {
@@ -36,29 +39,35 @@ export function Header({ logo, siteName, navItems, ctaButton, services }: Header
   const pathname = usePathname()
 
   useEffect(() => {
+    const isHome = pathname === '/'
     const handleScroll = () => {
-      setScrolled(window.scrollY > window.innerHeight - 100)
+      const hero = document.querySelector('section')
+      const threshold = hero
+        ? isHome ? hero.offsetHeight - 100 : hero.offsetHeight / 4
+        : window.innerHeight - 100
+      setScrolled(window.scrollY > threshold)
     }
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [pathname])
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       {scrolled && (
         <div className="absolute inset-x-0 top-0 h-24 backdrop-blur-sm pointer-events-none" style={{ maskImage: 'linear-gradient(to bottom, black 30%, transparent)', WebkitMaskImage: 'linear-gradient(to bottom, black 30%, transparent)' }} />
       )}
-      <div className="relative max-w-6xl mx-auto px-0 pt-8 md:pt-10">
-        <nav
-          className={`flex items-center justify-between backdrop-blur-sm rounded-lg px-2 h-14 md:h-15 transition-all duration-300 ${
-            scrolled
-              ? 'bg-white/92 border border-[#DBDBDB]'
-              : 'bg-white/6 border border-white/25'
-          }`}
-        >
+      <div className="relative max-w-7xl mx-auto px-6 md:px-8 pt-8 md:pt-10">
+        <nav className="flex items-center justify-between rounded-lg px-2 h-14 md:h-15 relative">
+          <div
+            className={`absolute inset-0 rounded-lg backdrop-blur-sm transition-all duration-300 pointer-events-none ${
+              scrolled
+                ? 'bg-white/92 border border-[#DBDBDB]'
+                : 'bg-white/6 border border-white/25'
+            }`}
+          />
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0 pl-4.5">
+          <Link href="/" className="flex items-center shrink-0 pl-4.5 relative">
             {logo?.image?.asset?._ref ? (
               <SanityImage
                 image={logo}
@@ -76,17 +85,25 @@ export function Header({ logo, siteName, navItems, ctaButton, services }: Header
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-16">
-            {navItems.map((item) =>
-              item.hasDropdown ? (
+          <div className="hidden lg:flex items-center gap-16 relative">
+            {navItems.map((item, index) =>
+              item.hasDropdown && item.dropdownType === 'services' ? (
                 <ServicesDropdown
-                  key={item.href}
+                  key={item.href || `nav-${index}`}
                   label={item.label}
-                  href={item.href}
+                  href={item.href || '/servizi'}
                   services={services}
                   scrolled={scrolled}
                 />
-              ) : (
+              ) : item.hasDropdown && item.dropdownType === 'custom' && item.subItems?.length ? (
+                <NavDropdown
+                  key={item.href || `nav-${index}`}
+                  label={item.label}
+                  href={item.href}
+                  subItems={item.subItems}
+                  scrolled={scrolled}
+                />
+              ) : item.href ? (
                 <Link
                   key={item.href}
                   href={item.href}
@@ -98,21 +115,21 @@ export function Header({ logo, siteName, navItems, ctaButton, services }: Header
                 >
                   {item.label}
                 </Link>
-              )
+              ) : null
             )}
           </div>
 
           {/* CTA + Mobile Toggle */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 relative">
             <Link
-              href="/contatti"
+              href={ctaButton?.href || '/contattaci'}
               className={`hidden lg:inline-block text-sm font-semibold uppercase tracking-normal px-5 py-2.5 rounded transition-colors duration-300 ${
                 scrolled
                   ? 'bg-gray-900 text-white hover:bg-gray-800'
                   : 'bg-white text-gray-900 hover:bg-white/90'
               }`}
             >
-              CONTATTACI
+              {ctaButton?.label || 'CONTATTACI'}
             </Link>
             <MobileMenu navItems={navItems} ctaButton={ctaButton} services={services} scrolled={scrolled} />
           </div>
