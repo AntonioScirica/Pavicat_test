@@ -7,6 +7,7 @@ import { projectId, dataset } from './src/sanity/config'
 import { schemaTypes, singletonTypes } from './src/sanity/schemas'
 import { structure } from './src/sanity/studio/structure'
 import { resolve } from './src/sanity/studio/resolve'
+import { DeleteDocumentAction } from './src/sanity/studio/actions/DeleteAction'
 
 export default defineConfig({
   name: 'pavicat',
@@ -36,6 +37,6 @@ export default defineConfig({
             ({ action }) =>
               action && ['publish', 'discardChanges', 'restore'].includes(action)
           )
-        : input,
+        : [...input, DeleteDocumentAction],
   },
 })

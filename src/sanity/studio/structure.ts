@@ -1,5 +1,5 @@
 import type { StructureResolver } from 'sanity/structure'
-import { CogIcon, MenuIcon, HomeIcon, ComponentIcon, UsersIcon, RocketIcon, BlockElementIcon, UserIcon } from '@sanity/icons'
+import { CogIcon, MenuIcon, HomeIcon, ComponentIcon, UsersIcon, RocketIcon, BlockElementIcon, UserIcon, ImagesIcon } from '@sanity/icons'
 
 export const structure: StructureResolver = (S) =>
   S.list()
@@ -50,6 +50,11 @@ export const structure: StructureResolver = (S) =>
         .title('Lavora con Noi')
         .icon(UserIcon)
         .child(S.document().schemaType('careersPage').documentId('careersPage')),
+
+      S.listItem()
+        .title('Pagina Progetti (Galleria)')
+        .icon(ImagesIcon)
+        .child(S.document().schemaType('projectsGalleryPage').documentId('projectsGalleryPage')),
 
       S.divider(),
 

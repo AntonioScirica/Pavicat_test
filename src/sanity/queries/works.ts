@@ -1,16 +1,16 @@
 import { defineQuery } from 'next-sanity'
 import { sectionsProjection } from './sections'
 
-export const servicesPageQuery = defineQuery(`
-  *[_type == "servicesPage"][0] {
+export const worksPageQuery = defineQuery(`
+  *[_type == "worksPage"][0] {
     hero,
     ${sectionsProjection},
     seo
   }
 `)
 
-export const allServicesQuery = defineQuery(`
-  *[_type == "service"] | order(order asc) {
+export const allWorksQuery = defineQuery(`
+  *[_type == "work"] | order(order asc) {
     _id,
     title,
     category,
@@ -25,8 +25,8 @@ export const allServicesQuery = defineQuery(`
   }
 `)
 
-export const serviceBySlugQuery = defineQuery(`
-  *[_type == "service" && slug.current == $slug][0] {
+export const workBySlugQuery = defineQuery(`
+  *[_type == "work" && slug.current == $slug][0] {
     _id,
     title,
     "slug": slug.current,
@@ -40,6 +40,6 @@ export const serviceBySlugQuery = defineQuery(`
   }
 `)
 
-export const allServiceSlugsQuery = defineQuery(`
-  *[_type == "service"] { "slug": slug.current }
+export const allWorkSlugsQuery = defineQuery(`
+  *[_type == "work"] { "slug": slug.current }
 `)

@@ -8,6 +8,7 @@ import { ArrowUpRight } from 'lucide-react'
 interface Service {
   _id: string
   title: string
+  pillLabel?: string
   slug: string
   shortDescription?: string
   featuredImage?: {
@@ -126,7 +127,7 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
 
                       {/* Title */}
                       <span className="absolute top-4 left-4 bg-white text-[#676767] text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
-                        {service.title}
+                        {service.pillLabel || service.title}
                       </span>
                       {/* Arrow */}
                       <span className="absolute top-0 right-0 w-16 h-16 bg-gray-900 border-b-[6px] border-l-[6px] border-white flex items-center justify-center">
@@ -144,6 +145,33 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
                     </div>
                   </Link>
                 ))}
+
+                {/* "Vedi tutti" card */}
+                <Link
+                  href="/servizi"
+                  className="group relative shrink-0 w-[calc(100vw-4rem)] md:w-80"
+                >
+                  <div className="relative h-112 overflow-hidden rounded-lg bg-gray-200">
+                    {services[services.length - 1]?.featuredImage ? (
+                      <SanityImage
+                        image={services[services.length - 1].featuredImage!}
+                        fill
+                        className="object-cover blur-sm scale-105"
+                        sizes="(min-width: 1024px) 33vw, 256px"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 bg-gray-400" />
+                    )}
+                    <div className="absolute inset-0 bg-black/40" />
+                    <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+                      <span className="text-white text-lg font-bold uppercase tracking-wider">
+                        Vedi tutti
+                      </span>
+                      <ArrowUpRight className="w-8 h-8 text-white transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" strokeWidth={1.5} />
+                    </div>
+                  </div>
+                </Link>
+
                 <div className="shrink-0 w-6 lg:w-8" aria-hidden="true" />
               </div>
               </div>

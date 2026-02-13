@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import { sanityFetch } from '@/sanity/live'
 import { client } from '@/sanity/client'
-import { serviceBySlugQuery, allServiceSlugsQuery } from '@/sanity/queries/services'
+import { workBySlugQuery, allWorkSlugsQuery } from '@/sanity/queries/works'
 import { siteSettingsQuery } from '@/sanity/queries/settings'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { SanityImage } from '@/components/shared/SanityImage'
@@ -15,30 +15,30 @@ interface PageProps {
 
 export async function generateStaticParams() {
   const slugs = await client.fetch<{ slug: string }[]>(
-    `*[_type == "service"]{ "slug": slug.current }`
+    `*[_type == "work"]{ "slug": slug.current }`
   )
   return (slugs || []).map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
-  const [serviceResult, settingsResult] = await Promise.all([
-    sanityFetch({ query: serviceBySlugQuery, params: { slug } }),
+  const [workResult, settingsResult] = await Promise.all([
+    sanityFetch({ query: workBySlugQuery, params: { slug } }),
     sanityFetch({ query: siteSettingsQuery }),
   ])
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const seo = (serviceResult.data as any)?.seo
+  const seo = (workResult.data as any)?.seo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const defaultSeo = (settingsResult.data as any)?.defaultSeo
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const serviceData = serviceResult.data as any
+  const workData = workResult.data as any
 
   return {
-    title: seo?.metaTitle || serviceData?.title || 'Servizio',
-    description: seo?.metaDescription || serviceData?.shortDescription || defaultSeo?.metaDescription,
+    title: seo?.metaTitle || workData?.title || 'Lavoro',
+    description: seo?.metaDescription || workData?.shortDescription || defaultSeo?.metaDescription,
     openGraph: {
-      title: seo?.metaTitle || serviceData?.title,
-      description: seo?.metaDescription || serviceData?.shortDescription,
+      title: seo?.metaTitle || workData?.title,
+      description: seo?.metaDescription || workData?.shortDescription,
       images: seo?.ogImage ? [urlFor(seo.ogImage).width(1200).height(630).url()] : [],
       locale: 'it_IT',
     },
@@ -46,29 +46,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default async function ServiceDetailPage({ params }: PageProps) {
+export default async function WorkDetailPage({ params }: PageProps) {
   const { slug } = await params
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { data: service } = await sanityFetch({
-    query: serviceBySlugQuery,
+  const { data: work } = await sanityFetch({
+    query: workBySlugQuery,
     params: { slug },
   }) as { data: any }
 
-  if (!service) notFound()
+  if (!work) notFound()
 
   return (
     <>
       <PageHeader
-        title={service.title}
-        subtitle={service.shortDescription}
-        image={service.featuredImage}
+        title={work.title}
+        subtitle={work.shortDescription}
+        image={work.featuredImage}
       />
 
-      {service.contentBlocks && service.contentBlocks.length > 0 && (
+      {work.contentBlocks && work.contentBlocks.length > 0 && (
         <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {service.contentBlocks.map((block: any, index: number) => (
+              {work.contentBlocks.map((block: any, index: number) => (
                 <div key={index} className="group relative overflow-hidden rounded-2xl bg-gray-50">
                   {block.image && (
                     <div className="relative h-56 overflow-hidden">

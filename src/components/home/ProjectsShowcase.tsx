@@ -65,9 +65,8 @@ export function ProjectsShowcase({ heading, subheading, stats, categories, ctaTe
           {categories && categories.length > 0 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-5 sm:gap-3 md:gap-4">
               {categories.map((category, index) => (
-                <Link
+                <div
                   key={index}
-                  href={category.href || '#'}
                   className="group relative rounded-xl overflow-hidden aspect-4/3 sm:aspect-3/4 bg-gray-200"
                 >
                   {category.image?.image?.asset?._ref ? (
@@ -90,7 +89,7 @@ export function ProjectsShowcase({ heading, subheading, stats, categories, ctaTe
                       </span>
                     </div>
                   )}
-                </Link>
+                </div>
               ))}
             </div>
           )}

@@ -1,15 +1,15 @@
 import { defineField, defineType } from 'sanity'
-import { WrenchIcon } from '@sanity/icons'
+import { ProjectsIcon } from '@sanity/icons'
 
-export const service = defineType({
-  name: 'service',
-  title: 'Servizio',
+export const work = defineType({
+  name: 'work',
+  title: 'Lavoro',
   type: 'document',
-  icon: WrenchIcon,
+  icon: ProjectsIcon,
   fields: [
     defineField({
       name: 'title',
-      title: 'Nome servizio',
+      title: 'Nome lavoro',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -21,16 +21,9 @@ export const service = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
-      name: 'pillLabel',
-      title: 'Etichetta pillola',
-      type: 'string',
-      description: 'Testo mostrato sulla pillola nelle card (es: "Cemento elicotterato")',
-    }),
-    defineField({
       name: 'category',
       title: 'Categoria',
       type: 'string',
-      description: 'Categoria per i filtri (es: Cemento, Resina, Rampe)',
     }),
     defineField({
       name: 'shortDescription',
@@ -43,12 +36,6 @@ export const service = defineType({
       name: 'featuredImage',
       title: 'Immagine principale',
       type: 'imageWithAlt',
-    }),
-    defineField({
-      name: 'gallery',
-      title: 'Galleria immagini',
-      type: 'array',
-      of: [{ type: 'imageWithAlt' }],
     }),
     defineField({
       name: 'contentBlocks',

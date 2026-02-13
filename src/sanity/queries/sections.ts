@@ -32,6 +32,7 @@ export const sectionsProjection = `
       featuredServices[]-> {
         _id,
         title,
+        pillLabel,
         "slug": slug.current,
         shortDescription,
         icon,
@@ -95,7 +96,28 @@ export const sectionsProjection = `
         category,
         "slug": slug.current,
         shortDescription,
-        featuredImage
+        featuredImage,
+        contentBlocks[] {
+          _key,
+          text,
+          image
+        }
+      }
+    },
+    _type == "allWorksGridBlock" => {
+      backgroundColor,
+      "services": *[_type == "work"] | order(order asc) {
+        _id,
+        title,
+        category,
+        "slug": slug.current,
+        shortDescription,
+        featuredImage,
+        contentBlocks[] {
+          _key,
+          text,
+          image
+        }
       }
     }
   }

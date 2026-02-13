@@ -1,32 +1,26 @@
-import Link from 'next/link'
 import { SanityImage } from '@/components/shared/SanityImage'
 
 interface ServiceCardProps {
-  title: string
   category?: string
-  slug: string
-  shortDescription?: string
-  featuredImage?: {
+  text?: string
+  image?: {
     image?: { asset?: { _ref?: string } }
     alt?: string
   }
 }
 
-export function ServiceCard({ title, category, slug, shortDescription, featuredImage }: ServiceCardProps) {
+export function ServiceCard({ category, text, image }: ServiceCardProps) {
   return (
-    <Link
-      href={`/servizi/${slug}`}
-      className="group relative block h-96 rounded-lg overflow-hidden bg-gray-200"
-    >
-      {featuredImage ? (
+    <div className="group relative block aspect-4/3 rounded-lg overflow-hidden bg-gray-200">
+      {image?.image?.asset ? (
         <SanityImage
-          image={featuredImage}
+          image={image}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
         />
       ) : (
-        <div className="absolute inset-0 bg-gray-300" />
+        <div className="absolute inset-0 bg-linear-to-br from-gray-300 to-gray-400" />
       )}
       <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
@@ -36,14 +30,13 @@ export function ServiceCard({ title, category, slug, shortDescription, featuredI
         </span>
       )}
 
-      <div className="absolute bottom-5 left-5 right-5">
-        <h3 className="text-white text-lg font-bold mb-1">{title}</h3>
-        {shortDescription && (
-          <p className="text-white/85 text-sm leading-relaxed line-clamp-4">
-            {shortDescription}
+      {text && (
+        <div className="absolute bottom-5 left-5 right-5">
+          <p className="text-white text-sm leading-relaxed line-clamp-5">
+            {text}
           </p>
-        )}
-      </div>
-    </Link>
+        </div>
+      )}
+    </div>
   )
 }

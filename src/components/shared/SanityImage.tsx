@@ -29,12 +29,11 @@ export function SanityImage({
 }: SanityImageProps) {
   if (!image?.image?.asset?._ref) return null
 
-  const imageUrl = urlFor(image.image).width(width).height(height).url()
-
   if (fill) {
+    const fillUrl = urlFor(image.image).width(1600).auto('format').url()
     return (
       <Image
-        src={imageUrl}
+        src={fillUrl}
         alt={image.alt || ''}
         fill
         className={className}
@@ -43,6 +42,8 @@ export function SanityImage({
       />
     )
   }
+
+  const imageUrl = urlFor(image.image).width(width).auto('format').url()
 
   return (
     <Image

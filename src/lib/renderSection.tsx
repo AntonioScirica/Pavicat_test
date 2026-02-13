@@ -111,6 +111,7 @@ export function renderSection(section: any) {
         />
       )
     case 'allServicesGridBlock':
+    case 'allWorksGridBlock':
       return (
         <section key={section._key} className={`py-16 md:py-24 ${section.backgroundColor === 'gray' ? 'bg-gray-50' : ''}`}>
           <div className="max-w-7xl mx-auto px-6 md:px-8">
