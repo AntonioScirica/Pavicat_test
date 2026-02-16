@@ -14,6 +14,8 @@ export const allWorksQuery = defineQuery(`
     _id,
     title,
     category,
+    location,
+    date,
     "slug": slug.current,
     shortDescription,
     featuredImage,
@@ -30,6 +32,9 @@ export const workBySlugQuery = defineQuery(`
     _id,
     title,
     "slug": slug.current,
+    category,
+    location,
+    date,
     shortDescription,
     featuredImage,
     contentBlocks[] {

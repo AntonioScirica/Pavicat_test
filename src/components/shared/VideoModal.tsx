@@ -45,7 +45,7 @@ export function VideoModal({ url, buttonText, icon }: VideoModalProps) {
 
       {isOpen && (
         <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+          className="fixed inset-0 z-100 flex items-center justify-center p-4"
           onClick={close}
         >
           <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" />

@@ -47,6 +47,28 @@ export const sectionsProjection = `
         value,
         label
       },
+      "featuredWorks": select(
+        count(featuredWorks) > 0 => featuredWorks[]-> {
+          _id,
+          title,
+          "slug": slug.current,
+          category,
+          location,
+          date,
+          shortDescription,
+          featuredImage
+        },
+        *[_type == "work"] | order(order asc) [0...8] {
+          _id,
+          title,
+          "slug": slug.current,
+          category,
+          location,
+          date,
+          shortDescription,
+          featuredImage
+        }
+      ),
       categories[] {
         title,
         image,
@@ -110,14 +132,11 @@ export const sectionsProjection = `
         _id,
         title,
         category,
+        location,
+        date,
         "slug": slug.current,
         shortDescription,
-        featuredImage,
-        contentBlocks[] {
-          _key,
-          text,
-          image
-        }
+        featuredImage
       }
     }
   }

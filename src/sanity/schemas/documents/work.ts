@@ -26,11 +26,25 @@ export const work = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'location',
+      title: 'Località',
+      type: 'string',
+      description: 'Es. "Roma, RM" o "Milano, MI"',
+    }),
+    defineField({
+      name: 'date',
+      title: 'Data realizzazione',
+      type: 'date',
+      options: {
+        dateFormat: 'MM/YYYY',
+      },
+    }),
+    defineField({
       name: 'shortDescription',
       title: 'Descrizione breve',
       type: 'text',
-      rows: 3,
-      validation: (rule) => rule.max(200),
+      rows: 5,
+      validation: (rule) => rule.max(500),
     }),
     defineField({
       name: 'featuredImage',

@@ -1,8 +1,9 @@
 import { sanityFetch } from '@/sanity/live'
+import { allWorksQuery } from '@/sanity/queries/works'
 import { projectsGalleryPageQuery } from '@/sanity/queries/gallery'
 import { siteSettingsQuery } from '@/sanity/queries/settings'
 import { PageHeader } from '@/components/shared/PageHeader'
-import { GalleryGrid } from '@/components/gallery/GalleryGrid'
+import { WorksGrid } from '@/components/services/WorksGrid'
 import type { Metadata } from 'next'
 import { urlFor } from '@/sanity/image'
 
@@ -30,10 +31,15 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ProgettiPage() {
-  const pageResult = await sanityFetch({ query: projectsGalleryPageQuery })
+  const [pageResult, worksResult] = await Promise.all([
+    sanityFetch({ query: projectsGalleryPageQuery }),
+    sanityFetch({ query: allWorksQuery }),
+  ])
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const page = pageResult.data as any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const works = (worksResult.data as any[]) || []
 
   return (
     <>
@@ -46,7 +52,7 @@ export default async function ProgettiPage() {
 
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-6 md:px-8">
-          <GalleryGrid images={page?.images || []} />
+          <WorksGrid works={works} />
         </div>
       </section>
     </>

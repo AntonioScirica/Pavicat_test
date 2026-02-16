@@ -63,7 +63,7 @@ export function StorySection({ heading, text, buttonText, buttonLink, buttonIcon
           )}
           <div>
             {text && (
-              <p className="text-gray-500 leading-[2] text-base font-medium whitespace-pre-line">
+              <p className="text-gray-500 leading-loose text-base font-medium whitespace-pre-line">
                 {text}
               </p>
             )}

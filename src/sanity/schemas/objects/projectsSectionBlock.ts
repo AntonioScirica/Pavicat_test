@@ -32,9 +32,17 @@ export const projectsSectionBlock = defineType({
       ],
     }),
     defineField({
-      name: 'categories',
-      title: 'Categorie progetti',
+      name: 'featuredWorks',
+      title: 'Progetti in evidenza',
       type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'work' }] }],
+      description: 'Seleziona almeno 8 progetti da mostrare in homepage',
+    }),
+    defineField({
+      name: 'categories',
+      title: 'Categorie progetti (legacy)',
+      type: 'array',
+      hidden: true,
       of: [
         {
           type: 'object',
@@ -49,7 +57,7 @@ export const projectsSectionBlock = defineType({
         },
       ],
     }),
-    defineField({ name: 'ctaText', title: 'Testo pulsante', type: 'string' }),
+    defineField({ name: 'ctaText', title: 'Testo pulsante', type: 'string', initialValue: 'Vedi altri progetti' }),
     defineField({ name: 'ctaHref', title: 'Link pulsante', type: 'string' }),
   ],
   preview: {

@@ -81,10 +81,10 @@ export function ServicesGrid({ services }: ServicesGridProps) {
   return (
     <>
       {categories.length > 0 && (
-        <div className="flex flex-wrap justify-center gap-3 mb-12">
+        <div className="flex overflow-x-auto gap-3 mb-12 pb-2 sm:flex-wrap sm:justify-center sm:overflow-x-visible sm:max-w-4xl sm:mx-auto">
           <button
             onClick={() => handleCategoryChange(null)}
-            className={`px-5 py-2.5 rounded-sm text-sm font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
+            className={`shrink-0 px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
               activeCategory === null
                 ? 'bg-gray-900 text-white'
                 : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-900'
@@ -96,7 +96,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
             <button
               key={category}
               onClick={() => handleCategoryChange(activeCategory === category ? null : category)}
-              className={`px-5 py-2.5 rounded-sm text-sm font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
+              className={`shrink-0 px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
                 activeCategory === category
                   ? 'bg-gray-900 text-white'
                   : 'bg-white text-gray-700 border border-gray-300 hover:border-gray-900'

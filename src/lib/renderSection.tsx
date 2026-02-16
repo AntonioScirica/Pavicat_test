@@ -9,6 +9,7 @@ import { Divider } from '@/components/home/Divider'
 import { ContactSection } from '@/components/contact/ContactSection'
 import { DownloadSection } from '@/components/home/DownloadSection'
 import { ServicesGrid } from '@/components/services/ServicesGrid'
+import { WorksGrid } from '@/components/services/WorksGrid'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function renderSection(section: any) {
@@ -60,6 +61,7 @@ export function renderSection(section: any) {
           heading={section.heading}
           subheading={section.subheading}
           stats={section.stats}
+          featuredWorks={section.featuredWorks}
           categories={section.categories}
           ctaText={section.ctaText}
           ctaHref={section.ctaHref}
@@ -111,11 +113,18 @@ export function renderSection(section: any) {
         />
       )
     case 'allServicesGridBlock':
-    case 'allWorksGridBlock':
       return (
         <section key={section._key} className={`py-16 md:py-24 ${section.backgroundColor === 'gray' ? 'bg-gray-50' : ''}`}>
           <div className="max-w-7xl mx-auto px-6 md:px-8">
             <ServicesGrid services={section.services || []} />
+          </div>
+        </section>
+      )
+    case 'allWorksGridBlock':
+      return (
+        <section key={section._key} className={`py-16 md:py-24 ${section.backgroundColor === 'gray' ? 'bg-gray-50' : ''}`}>
+          <div className="max-w-7xl mx-auto px-6 md:px-8">
+            <WorksGrid works={section.services || []} />
           </div>
         </section>
       )

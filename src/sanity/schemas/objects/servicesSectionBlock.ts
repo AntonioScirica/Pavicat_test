@@ -2,7 +2,7 @@ import { defineField, defineType } from 'sanity'
 
 export const servicesSectionBlock = defineType({
   name: 'servicesSectionBlock',
-  title: 'I Nostri Servizi',
+  title: 'Prodotti e Servizi',
   type: 'object',
   fields: [
     defineField({ name: 'heading', title: 'Titolo sezione', type: 'string' }),
@@ -24,7 +24,7 @@ export const servicesSectionBlock = defineType({
   preview: {
     select: { title: 'heading' },
     prepare({ title }) {
-      return { title: title || 'I Nostri Servizi', subtitle: 'Sezione servizi' }
+      return { title: title || 'Prodotti e Servizi', subtitle: 'Sezione servizi' }
     },
   },
 })
