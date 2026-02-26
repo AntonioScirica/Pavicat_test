@@ -58,7 +58,7 @@ export const sectionsProjection = `
           shortDescription,
           featuredImage
         },
-        *[_type == "work"] | order(order asc) [0...8] {
+        *[_type == "work"] | order(_createdAt desc) [0...4] {
           _id,
           title,
           "slug": slug.current,

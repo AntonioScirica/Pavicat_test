@@ -46,7 +46,7 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
         {/* Services grid */}
         {hasServices && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {services.slice(0, 4).map((service) => (
+            {services.map((service) => (
               <Link
                 key={service._id}
                 href={`/servizi/${service.slug}`}
@@ -88,17 +88,6 @@ export function ServicesOverview({ heading, subheading, services, backgroundColo
           </div>
         )}
 
-        {/* CTA to all services */}
-        {hasServices && (
-          <div className="text-center pt-14 md:pt-20">
-            <Link
-              href="/servizi"
-              className="inline-block bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-8 py-3 rounded-sm hover:bg-gray-800 transition-colors"
-            >
-              Vedi altri servizi
-            </Link>
-          </div>
-        )}
       </div>
     </section>
   )
