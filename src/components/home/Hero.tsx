@@ -27,7 +27,7 @@ export function Hero({ badge, title, subtitle, image, images }: HeroProps) {
 
   useEffect(() => {
     if (!hasMultiple) return
-    const timer = setInterval(next, 5000)
+    const timer = setInterval(next, 3000)
     return () => clearInterval(timer)
   }, [hasMultiple, next])
 
