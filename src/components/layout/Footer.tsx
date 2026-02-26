@@ -49,12 +49,15 @@ export function Footer({
   copyrightText,
 }: FooterProps) {
   const hasSocial = socialLinks && socialLinks.length > 0
-  const columnCount = (footerColumns?.length || 0) + (hasSocial ? 2 : 1)
+  // +1 logo, +1 "Altro" column, +1 if social
+  const columnCount = 1 + (footerColumns?.length || 0) + 1 + (hasSocial ? 1 : 0)
   const gridClass = columnCount <= 3
     ? 'lg:grid-cols-3'
     : columnCount === 4
       ? 'lg:grid-cols-[140px_1fr_1fr_1fr]'
-      : 'lg:grid-cols-[140px_1fr_1fr_1fr_1fr]'
+      : columnCount === 5
+        ? 'lg:grid-cols-[140px_1fr_1fr_1fr_1fr]'
+        : 'lg:grid-cols-[140px_1fr_1fr_1fr_1fr_1fr]'
 
   return (
     <footer className="bg-[#2B2B2B] text-white">
@@ -63,7 +66,7 @@ export function Footer({
           {/* Logo */}
           <div>
             {logo?.image?.asset?._ref ? (
-              <SanityImage image={logo} width={150} height={60} className="h-16 w-auto mx-auto md:mx-0" />
+              <SanityImage image={logo} width={200} height={80} className="h-14 w-auto object-contain mx-auto md:mx-0" />
             ) : (
               <span className="text-xl font-bold block">{siteName || 'Pavicat'}</span>
             )}
@@ -135,6 +138,21 @@ export function Footer({
               </ul>
             </div>
           ))}
+
+          {/* Altro */}
+          <div>
+            <h3 className="font-bold text-sm text-white uppercase tracking-wider mb-5">Altro</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  href="/privacy-policy"
+                  className="text-[#7C7C7C] hover:text-white text-sm transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+            </ul>
+          </div>
 
           {/* Social */}
           {hasSocial && (

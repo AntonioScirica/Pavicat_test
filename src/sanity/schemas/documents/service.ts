@@ -33,6 +33,12 @@ export const service = defineType({
       description: 'Categoria per i filtri (es: Cemento, Resina, Rampe)',
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Secondo titolo',
+      type: 'string',
+      description: 'Titolo mostrato sotto l\'immagine nella pagina del servizio',
+    }),
+    defineField({
       name: 'shortDescription',
       title: 'Descrizione breve',
       type: 'text',
@@ -49,29 +55,6 @@ export const service = defineType({
       title: 'Galleria immagini',
       type: 'array',
       of: [{ type: 'imageWithAlt' }],
-    }),
-    defineField({
-      name: 'contentBlocks',
-      title: 'Blocchi di contenuto',
-      type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({ name: 'text', title: 'Testo', type: 'text', rows: 4 }),
-            defineField({ name: 'image', title: 'Immagine', type: 'imageWithAlt' }),
-          ],
-          preview: {
-            select: { title: 'text', media: 'image.image' },
-            prepare({ title, media }) {
-              return {
-                title: title ? (title.length > 60 ? title.slice(0, 60) + '...' : title) : 'Blocco',
-                media,
-              }
-            },
-          },
-        },
-      ],
     }),
     defineField({
       name: 'order',

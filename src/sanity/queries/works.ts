@@ -18,12 +18,7 @@ export const allWorksQuery = defineQuery(`
     date,
     "slug": slug.current,
     shortDescription,
-    featuredImage,
-    contentBlocks[] {
-      _key,
-      text,
-      image
-    }
+    featuredImage
   }
 `)
 
@@ -31,16 +26,14 @@ export const workBySlugQuery = defineQuery(`
   *[_type == "work" && slug.current == $slug][0] {
     _id,
     title,
+    subtitle,
     "slug": slug.current,
     category,
     location,
     date,
     shortDescription,
     featuredImage,
-    contentBlocks[] {
-      text,
-      image
-    },
+    gallery,
     seo
   }
 `)

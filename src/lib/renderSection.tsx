@@ -22,6 +22,7 @@ export function renderSection(section: any) {
           title={section.title}
           subtitle={section.subtitle}
           image={section.image}
+          images={section.images}
         />
       )
     case 'storySectionBlock':

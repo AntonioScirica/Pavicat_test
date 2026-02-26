@@ -87,8 +87,8 @@ export function ProjectsShowcase({ heading, subheading, stats, featuredWorks, ca
 
           {/* Featured works grid */}
           {hasWorks && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {featuredWorks.map((work) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8">
+              {featuredWorks.slice(0, 4).map((work) => (
                 <Link
                   key={work._id}
                   href={work.slug ? `/lavori/${work.slug}` : '#'}
@@ -142,11 +142,6 @@ export function ProjectsShowcase({ heading, subheading, stats, featuredWorks, ca
                       </div>
                     )}
 
-                    {work.shortDescription && (
-                      <p className="text-sm text-gray-500 leading-relaxed mt-2 line-clamp-3">
-                        {work.shortDescription}
-                      </p>
-                    )}
                   </div>
                 </Link>
               ))}

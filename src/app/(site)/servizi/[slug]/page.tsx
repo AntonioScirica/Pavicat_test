@@ -56,59 +56,47 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
   if (!service) notFound()
 
+  const hasGallery = service.gallery && service.gallery.length > 0
+
   return (
     <>
       <PageHeader
         title={service.title}
-        subtitle={service.shortDescription}
         image={service.featuredImage}
       />
 
-      {service.contentBlocks && service.contentBlocks.length > 0 && (
-        <section className="py-16 md:py-24">
-          <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <section className="py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-8">
+          {/* Titolo e descrizione */}
+          {service.shortDescription && (
+            <div className="mb-10">
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 uppercase tracking-tight leading-tight mb-4">
+                {service.subtitle || service.title}
+              </h2>
+              <p className="text-gray-500 leading-relaxed text-base md:text-lg">
+                {service.shortDescription}
+              </p>
+            </div>
+          )}
+
+          {/* Galleria immagini */}
+          {hasGallery && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {service.contentBlocks.map((block: any, index: number) => (
-                <div key={index} className="group relative block aspect-video rounded-lg overflow-hidden bg-gray-200">
-                  {block.image?.image?.asset ? (
-                    <SanityImage
-                      image={block.image}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-linear-to-br from-gray-300 to-gray-400" />
-                  )}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
-
-                  {service.category && (
-                    <span className="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
-                      {service.category}
-                    </span>
-                  )}
-
-                  {block.text && (
-                    <div className="absolute bottom-5 left-5 right-5">
-                      <p className="text-white text-sm leading-relaxed line-clamp-5">
-                        {block.text}
-                      </p>
-                    </div>
-                  )}
+              {service.gallery.map((img: any, index: number) => (
+                <div key={index} className="relative aspect-video rounded-lg overflow-hidden bg-gray-200">
+                  <SanityImage
+                    image={img}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
               ))}
             </div>
-            <div className="mt-16 text-center">
-              <Link
-                href="/contattaci"
-                className="inline-flex items-center gap-2.5 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gray-800 transition-colors"
-              >
-                Richiedi un preventivo
-              </Link>
-            </div>
-          </div>
-        </section>
-      )}
+          )}
+        </div>
+      </section>
+
     </>
   )
 }

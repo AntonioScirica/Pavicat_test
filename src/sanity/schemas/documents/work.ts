@@ -3,13 +3,13 @@ import { ProjectsIcon } from '@sanity/icons'
 
 export const work = defineType({
   name: 'work',
-  title: 'Lavoro',
+  title: 'Progetto',
   type: 'document',
   icon: ProjectsIcon,
   fields: [
     defineField({
       name: 'title',
-      title: 'Nome lavoro',
+      title: 'Nome progetto',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -40,6 +40,12 @@ export const work = defineType({
       },
     }),
     defineField({
+      name: 'subtitle',
+      title: 'Secondo titolo',
+      type: 'string',
+      description: 'Titolo mostrato sotto l\'immagine nella pagina del progetto',
+    }),
+    defineField({
       name: 'shortDescription',
       title: 'Descrizione breve',
       type: 'text',
@@ -52,27 +58,10 @@ export const work = defineType({
       type: 'imageWithAlt',
     }),
     defineField({
-      name: 'contentBlocks',
-      title: 'Blocchi di contenuto',
+      name: 'gallery',
+      title: 'Galleria immagini',
       type: 'array',
-      of: [
-        {
-          type: 'object',
-          fields: [
-            defineField({ name: 'text', title: 'Testo', type: 'text', rows: 4 }),
-            defineField({ name: 'image', title: 'Immagine', type: 'imageWithAlt' }),
-          ],
-          preview: {
-            select: { title: 'text', media: 'image.image' },
-            prepare({ title, media }) {
-              return {
-                title: title ? (title.length > 60 ? title.slice(0, 60) + '...' : title) : 'Blocco',
-                media,
-              }
-            },
-          },
-        },
-      ],
+      of: [{ type: 'imageWithAlt' }],
     }),
     defineField({
       name: 'order',

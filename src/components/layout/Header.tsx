@@ -73,7 +73,7 @@ export function Header({ logo, siteName, navItems, ctaButton, services }: Header
                 image={logo}
                 width={140}
                 height={46}
-                className={`h-6 w-auto transition-all duration-300 ${scrolled ? '' : 'brightness-0 invert'}`}
+                className="h-6 w-auto transition-all duration-300"
               />
             ) : (
               <span className={`text-xl font-bold tracking-[0.15em] uppercase transition-all duration-300 ${

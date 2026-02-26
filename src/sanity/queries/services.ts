@@ -29,13 +29,11 @@ export const serviceBySlugQuery = defineQuery(`
   *[_type == "service" && slug.current == $slug][0] {
     _id,
     title,
+    subtitle,
     "slug": slug.current,
     shortDescription,
     featuredImage,
-    contentBlocks[] {
-      text,
-      image
-    },
+    gallery,
     seo
   }
 `)

@@ -20,7 +20,7 @@ export function PartnersLogos({ logos, backgroundColor }: PartnersLogosProps) {
           {logos.map((logo, index) => (
             <div
               key={index}
-              className="shrink-0 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              className="shrink-0 opacity-60 hover:opacity-100 transition-all duration-300"
             >
               <SanityImage
                 image={{ image: logo.image, alt: logo.alt }}

@@ -60,4 +60,5 @@ export const structure: StructureResolver = (S) =>
 
       // Collections
       S.documentTypeListItem('service').title('Servizi'),
+      S.documentTypeListItem('work').title('Progetti'),
     ])

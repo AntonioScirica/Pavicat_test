@@ -10,7 +10,7 @@ interface PageHeaderProps {
   grayscale?: boolean
 }
 
-export function PageHeader({ title, subtitle, image, grayscale = true }: PageHeaderProps) {
+export function PageHeader({ title, subtitle, image, grayscale = false }: PageHeaderProps) {
   return (
     <section className="relative bg-white text-white p-3 md:p-4">
       <div className="relative w-full min-h-[65vh] rounded-2xl overflow-hidden border border-white/20 flex items-center justify-center">

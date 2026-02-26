@@ -7,6 +7,7 @@ export const sectionsProjection = `
       title,
       subtitle,
       image,
+      images,
       ctaText,
       ctaLink
     },

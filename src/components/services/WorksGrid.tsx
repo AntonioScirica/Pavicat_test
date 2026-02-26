@@ -83,7 +83,7 @@ export function WorksGrid({ works }: WorksGridProps) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">
         {visible.map((work) => (
           <Link
             key={work._id}
@@ -133,11 +133,6 @@ export function WorksGrid({ works }: WorksGridProps) {
                 </div>
               )}
 
-              {work.shortDescription && (
-                <p className="text-sm text-gray-500 leading-relaxed mt-2 line-clamp-2">
-                  {work.shortDescription}
-                </p>
-              )}
             </div>
           </Link>
         ))}

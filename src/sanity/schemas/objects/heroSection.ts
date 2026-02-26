@@ -27,6 +27,15 @@ export const heroSection = defineType({
       name: 'image',
       title: 'Immagine di sfondo',
       type: 'imageWithAlt',
+      description: 'Immagine singola (usata se non ci sono immagini slider)',
+    }),
+    defineField({
+      name: 'images',
+      title: 'Immagini slider',
+      type: 'array',
+      of: [{ type: 'imageWithAlt' }],
+      description: 'Slider di immagini (se presenti, sostituiscono l\'immagine singola)',
+      validation: (rule) => rule.max(5),
     }),
     defineField({
       name: 'ctaText',

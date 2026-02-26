@@ -1,16 +1,8 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { ServiceCard } from './ServiceCard'
-
-interface ContentBlock {
-  _key: string
-  text?: string
-  image?: {
-    image?: { asset?: { _ref?: string } }
-    alt?: string
-  }
-}
+import Link from 'next/link'
+import { SanityImage } from '@/components/shared/SanityImage'
 
 interface Service {
   _id: string
@@ -22,25 +14,14 @@ interface Service {
     image?: { asset?: { _ref?: string } }
     alt?: string
   }
-  contentBlocks?: ContentBlock[]
-}
-
-interface FlatBlock {
-  key: string
-  category?: string
-  text?: string
-  image?: ContentBlock['image']
 }
 
 interface ServicesGridProps {
   services: Service[]
 }
 
-const PAGE_SIZE = 12
-
 export function ServicesGrid({ services }: ServicesGridProps) {
   const [activeCategory, setActiveCategory] = useState<string | null>(null)
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE)
 
   const categories = useMemo(() => {
     const cats = services
@@ -49,41 +30,16 @@ export function ServicesGrid({ services }: ServicesGridProps) {
     return [...new Set(cats)]
   }, [services])
 
-  const blocks = useMemo(() => {
-    const result: FlatBlock[] = []
-    for (const service of services) {
-      if (service.contentBlocks && service.contentBlocks.length > 0) {
-        for (const block of service.contentBlocks) {
-          result.push({
-            key: `${service._id}-${block._key}`,
-            category: service.category,
-            text: block.text,
-            image: block.image,
-          })
-        }
-      }
-    }
-    return result
-  }, [services])
-
   const filtered = activeCategory
-    ? blocks.filter((b) => b.category === activeCategory)
-    : blocks
-
-  const visible = filtered.slice(0, visibleCount)
-  const hasMore = visibleCount < filtered.length
-
-  const handleCategoryChange = (category: string | null) => {
-    setActiveCategory(category)
-    setVisibleCount(PAGE_SIZE)
-  }
+    ? services.filter((s) => s.category === activeCategory)
+    : services
 
   return (
     <>
       {categories.length > 0 && (
         <div className="flex overflow-x-auto gap-3 mb-12 pb-2 sm:flex-wrap sm:justify-center sm:overflow-x-visible sm:max-w-4xl sm:mx-auto">
           <button
-            onClick={() => handleCategoryChange(null)}
+            onClick={() => setActiveCategory(null)}
             className={`shrink-0 px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
               activeCategory === null
                 ? 'bg-gray-900 text-white'
@@ -95,7 +51,7 @@ export function ServicesGrid({ services }: ServicesGridProps) {
           {categories.map((category) => (
             <button
               key={category}
-              onClick={() => handleCategoryChange(activeCategory === category ? null : category)}
+              onClick={() => setActiveCategory(activeCategory === category ? null : category)}
               className={`shrink-0 px-3 py-1.5 rounded-sm text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer ${
                 activeCategory === category
                   ? 'bg-gray-900 text-white'
@@ -109,27 +65,32 @@ export function ServicesGrid({ services }: ServicesGridProps) {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {visible.map((block) => (
-          <div key={block.key}>
-            <ServiceCard
-              category={block.category}
-              text={block.text}
-              image={block.image}
-            />
-          </div>
+        {filtered.map((service) => (
+          <Link
+            key={service._id}
+            href={`/servizi/${service.slug}`}
+            className="group relative block aspect-video rounded-lg overflow-hidden bg-gray-200"
+          >
+            {service.featuredImage?.image?.asset ? (
+              <SanityImage
+                image={service.featuredImage}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-linear-to-br from-gray-300 to-gray-400" />
+            )}
+            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+
+            {service.category && (
+              <span className="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
+                {service.category}
+              </span>
+            )}
+          </Link>
         ))}
       </div>
-
-      {hasMore && (
-        <div className="mt-12 text-center">
-          <button
-            onClick={() => setVisibleCount((prev) => prev + PAGE_SIZE)}
-            className="px-8 py-3 bg-white text-gray-700 border border-gray-300 rounded-sm text-sm font-semibold uppercase tracking-wider hover:border-gray-900 transition-colors cursor-pointer"
-          >
-            Carica altro
-          </button>
-        </div>
-      )}
     </>
   )
 }
