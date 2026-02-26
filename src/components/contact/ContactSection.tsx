@@ -47,7 +47,7 @@ export function ContactSection({
   const items = [
     { label: 'Telefono:', value: phone, href: phone ? `tel:${phone}` : undefined, icon: <PhoneIcon /> },
     { label: 'Email:', value: email, href: email ? `mailto:${email}` : undefined, icon: <EmailIcon /> },
-    { label: 'Indirizzo:', value: address, href: mapUrl || undefined, external: true, icon: <AddressIcon /> },
+    { label: 'Indirizzo:', value: address, href: mapUrl || (address ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}` : undefined), external: true, icon: <AddressIcon /> },
     { label: 'Orari:', value: hours, icon: <ClockIcon /> },
   ]
 
