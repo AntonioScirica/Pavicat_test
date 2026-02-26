@@ -13,7 +13,7 @@ interface HeroProps {
 export function Hero({ badge, title, subtitle, image }: HeroProps) {
   return (
     <section className="relative bg-white text-white min-h-screen p-3 md:p-4">
-      <div className="relative w-full h-full min-h-[calc(100vh-1.5rem)] md:min-h-[calc(100vh-2rem)] rounded-2xl overflow-hidden border border-white/20 flex items-end">
+      <div className="relative w-full h-full min-h-[calc(100vh-1.5rem)] md:min-h-[calc(100vh-2rem)] rounded-2xl overflow-hidden border border-white/20 flex items-center md:items-end">
         {image ? (
           <div className="absolute inset-0">
             <SanityImage image={image} fill className="object-cover grayscale" priority />
@@ -22,8 +22,8 @@ export function Hero({ badge, title, subtitle, image }: HeroProps) {
         ) : (
           <div className="absolute inset-0 bg-gray-800" />
         )}
-        <div className="w-full mx-auto px-6 md:px-10 lg:px-14 relative z-10 pb-14 md:pb-20 pt-40">
-          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 md:gap-6 lg:gap-16">
+        <div className="w-full mx-auto px-6 md:px-10 lg:px-14 relative z-10 pb-10 md:pb-20 pt-40">
+          <div className="flex flex-col items-center text-center lg:text-left lg:flex-row lg:items-end lg:justify-between gap-4 md:gap-6 lg:gap-16">
             <div className="max-w-170">
               {badge && (
                 <span className="inline-block border border-white/30 text-white/90 text-xs tracking-wider uppercase px-4 py-1.5 rounded-sm mb-5">
@@ -31,7 +31,7 @@ export function Hero({ badge, title, subtitle, image }: HeroProps) {
                 </span>
               )}
               {title && (
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+                <h1 className="text-[1.8rem] md:text-4xl lg:text-5xl font-bold leading-tight mx-auto lg:mx-0">
                   {title}
                 </h1>
               )}

@@ -25,7 +25,7 @@ export function PageHeader({ title, subtitle, image, grayscale = true }: PageHea
         <div className="w-full mx-auto px-6 md:px-10 lg:px-14 relative z-10 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-3">{title}</h1>
           {subtitle && (
-            <p className="text-base md:text-lg text-gray-300 max-w-2xl">{subtitle}</p>
+            <p className="text-base md:text-lg text-gray-300 max-w-2xl mx-auto">{subtitle}</p>
           )}
         </div>
       </div>

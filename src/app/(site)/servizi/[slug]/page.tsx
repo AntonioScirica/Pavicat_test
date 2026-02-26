@@ -5,7 +5,7 @@ import { serviceBySlugQuery, allServiceSlugsQuery } from '@/sanity/queries/servi
 import { siteSettingsQuery } from '@/sanity/queries/settings'
 import { PageHeader } from '@/components/shared/PageHeader'
 import { SanityImage } from '@/components/shared/SanityImage'
-import { Button } from '@/components/shared/Button'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 import { urlFor } from '@/sanity/image'
 
@@ -67,31 +67,44 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       {service.contentBlocks && service.contentBlocks.length > 0 && (
         <section className="py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-6 md:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {service.contentBlocks.map((block: any, index: number) => (
-                <div key={index} className="group relative overflow-hidden rounded-2xl bg-gray-50">
-                  {block.image && (
-                    <div className="relative h-56 overflow-hidden">
-                      <SanityImage
-                        image={block.image}
-                        fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
+                <div key={index} className="group relative block aspect-video rounded-lg overflow-hidden bg-gray-200">
+                  {block.image?.image?.asset ? (
+                    <SanityImage
+                      image={block.image}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-linear-to-br from-gray-300 to-gray-400" />
                   )}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+
+                  {service.category && (
+                    <span className="absolute top-4 left-4 bg-white text-gray-700 text-xs font-semibold px-3 py-1.5 rounded-md uppercase tracking-wide">
+                      {service.category}
+                    </span>
+                  )}
+
                   {block.text && (
-                    <div className="p-6">
-                      <p className="text-gray-700 leading-relaxed">{block.text}</p>
+                    <div className="absolute bottom-5 left-5 right-5">
+                      <p className="text-white text-sm leading-relaxed line-clamp-5">
+                        {block.text}
+                      </p>
                     </div>
                   )}
                 </div>
               ))}
             </div>
             <div className="mt-16 text-center">
-              <Button href="/contattaci" size="lg">
+              <Link
+                href="/contattaci"
+                className="inline-flex items-center gap-2.5 bg-gray-900 text-white text-xs font-semibold uppercase tracking-wider px-6 py-3 rounded-sm hover:bg-gray-800 transition-colors"
+              >
                 Richiedi un preventivo
-              </Button>
+              </Link>
             </div>
           </div>
         </section>

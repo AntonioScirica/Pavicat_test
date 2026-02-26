@@ -57,26 +57,21 @@ export function ServicesDropdown({ label, href, services, scrolled }: ServicesDr
 
       {isOpen && (
         <div className="absolute top-full left-0 mt-3 w-lg bg-white/95 backdrop-blur-md rounded-lg shadow-xl border border-white/20 py-4 z-50">
-          <div className="grid grid-cols-2 gap-x-2">
-            {services.map((service) => (
+          <div className="grid grid-cols-2 gap-x-4 px-4">
+            {services.map((service, index) => (
               <Link
                 key={service._id}
                 href={`/servizi/${service.slug}`}
-                className="block px-5 py-2.5 hover:bg-gray-100/60 transition-colors rounded-lg"
+                className={`flex items-center px-3 py-1.5 text-sm font-medium text-gray-900 hover:bg-gray-100/60 transition-colors ${
+                  index < services.length - 2 ? 'border-b border-gray-300' : ''
+                }`}
                 onClick={() => setIsOpen(false)}
               >
-                <span className="block text-sm font-semibold text-gray-900">
-                  {service.title}
-                </span>
-                {service.shortDescription && (
-                  <span className="block text-xs text-gray-500 mt-0.5">
-                    {service.shortDescription}
-                  </span>
-                )}
+                {service.title}
               </Link>
             ))}
           </div>
-          <div className="border-t border-gray-100 mt-3 pt-3 px-5">
+          <div className="border-t border-gray-100 mt-3 pt-3 px-7">
             <Link
               href={href}
               className="text-sm text-gray-900 font-medium hover:text-gray-600"
