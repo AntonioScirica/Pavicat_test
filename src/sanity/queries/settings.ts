@@ -5,6 +5,7 @@ export const siteSettingsQuery = defineQuery(`
     logo,
     logoWhite,
     siteName,
+    favicon,
     defaultSeo
   }
 `)

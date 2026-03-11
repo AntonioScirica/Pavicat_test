@@ -23,6 +23,13 @@ export const siteSettings = defineType({
       type: 'string',
     }),
     defineField({
+      name: 'favicon',
+      title: 'Favicon',
+      type: 'image',
+      description: 'Icona del sito (visibile nella tab del browser). Formato consigliato: PNG quadrato 32x32 o 180x180.',
+      options: { hotspot: false },
+    }),
+    defineField({
       name: 'defaultSeo',
       title: 'SEO predefinito',
       type: 'seo',
