@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
 
     // Handle delete (Sanity sends a body with only _id and _type when deleting)
     if (!body.title && !body.slug) {
-      const { error } = await supabase
+      const { error } = await getSupabase()
         .from('services')
         .delete()
         .eq('sanity_id', sanityId)
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
       is_published: true,
     }
 
-    const { error } = await supabase
+    const { error } = await getSupabase()
       .from('services')
       .upsert(serviceData, { onConflict: 'sanity_id' })
 
